@@ -1,6 +1,6 @@
 import React from "react";
 import CollectionItem from "../../components/collection-item/CollectionItem";
-import connect from "../../components/cart-icon/CartIcon";
+import { connect } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selector";
 
 const CollectionPage = ({ collection }) => {

@@ -5,10 +5,13 @@ import { createStructuredSelector } from "reselect";
 
 import { ReactComponent as Logo } from "../../assets/18763726-crown.svg";
 import { auth } from "../../firebase/firebase.utils";
+// auth
+
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import CartIcon from "../cart-icon/CartIcon";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
+
 import "./Header.styles.scss";
 
 const Header = ({ currentUser, hidden }) => {

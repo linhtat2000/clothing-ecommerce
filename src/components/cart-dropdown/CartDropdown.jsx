@@ -1,44 +1,46 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../cart-item/CartItem";
 
 import CustomButton from "../custom-button/CustomButton";
-
-import "./CartDropdown.styles.scss";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
-import { createStructuredSelector } from "reselect";
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
-const CartDropdown = ({ cartItems, toggleCartHidden }) => {
+import {
+  CartDropdownContainer,
+  CartDropdownButton,
+  EmptyMessageContainer,
+  CartItemsContainer,
+} from "./cart-dropdown.styles";
+
+const CartDropdown = () => {
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
   let navigate = useNavigate();
-  function handleClick() {
+
+  const handleClick = () => {
     navigate("./checkout");
-    toggleCartHidden();
-  }
+    dispatch(toggleCartHidden());
+  };
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items" />
-      {cartItems.length ? (
-        cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} item={cartItem} />
-        ))
-      ) : (
-        <span className="empty-message">Your cart is empty</span>
-      )}
+    <CartDropdownContainer>
+      <CartItemsContainer>
+        {cartItems.length ? (
+          cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} item={cartItem} />
+          ))
+        ) : (
+          <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
+        )}
+      </CartItemsContainer>
 
-      <CustomButton onClick={handleClick}>Go to Checkout</CustomButton>
-    </div>
+      <CartDropdownButton onClick={handleClick}>
+        Go to Checkout
+      </CartDropdownButton>
+    </CartDropdownContainer>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown);
+export default CartDropdown;

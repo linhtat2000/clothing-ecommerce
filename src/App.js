@@ -9,8 +9,7 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/SignInAndSignUp";
 import CheckoutPage from "./pages/checkout/Checkout";
 
 import { selectCurrentUser } from "./redux/user/user.selectors";
-import { setCurrentUser } from "./redux/user/user.actions";
-//checkUserSession
+import { checkUserSession } from "./redux/user/user.actions";
 
 import "./App.css";
 
@@ -20,7 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCurrentUser());
+    dispatch(checkUserSession());
   }, [dispatch]);
 
   return (
